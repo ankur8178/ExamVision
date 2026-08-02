@@ -352,8 +352,8 @@ export default function LoginPage() {
         </div>
       )}
 
-      <div style={S.container}>
-        <div style={S.left}>
+      <div style={S.container} className="auth-container">
+        <div style={S.left} className="auth-left">
           <div style={S.logo}>
             <span style={S.logoIcon}>⬡</span>
             <span style={S.logoText}>ExamVision</span>
@@ -381,8 +381,8 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <div style={S.right}>
-          <div style={S.card}>
+        <div style={S.right} className="auth-right">
+          <div style={S.card} className="auth-card">
             <div style={S.cardLogo}>
               <span style={S.logoIcon}>⬡</span>
               <span style={S.logoText}>ExamVision</span>

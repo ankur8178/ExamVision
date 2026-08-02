@@ -184,7 +184,7 @@ export default function RegisterPage() {
         </div>
       )}
 
-      <div style={styles.card}>
+      <div style={styles.card} className="auth-card">
         <div style={styles.logo}>
           <span style={{ fontSize: 28, color: 'var(--accent2)' }}>⬡</span>
           <span style={styles.logoText}>ExamVision</span>
