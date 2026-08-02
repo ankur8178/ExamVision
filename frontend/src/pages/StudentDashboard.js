@@ -157,7 +157,11 @@ export default function StudentDashboard() {
           </div>
 
           {loading ? (
-            <div className="empty-state"><div className="spinner" /></div>
+            <div style={S.grid}>
+              {[1, 2, 3].map(n => (
+                <div key={n} className="skeleton" style={{ height: 160, borderRadius: 14 }} />
+              ))}
+            </div>
           ) : courses.length === 0 ? (
             <div className="empty-state">
               <div className="empty-state-icon">📚</div>

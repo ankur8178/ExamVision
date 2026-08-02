@@ -321,24 +321,21 @@ export default function AILiveMonitor({ stream, onViolation, onReady }) {
       />
 
       {/* AI status widget */}
-      <div style={{
+      <div className={`glass-panel ${cvWarning || speechWarning ? 'hud-ring-warn' : 'hud-ring-safe'}`} style={{
         position      : 'fixed',
-        bottom        : 150,
-        right         : 16,
-        width         : 170,
-        background    : 'rgba(17,17,24,0.9)',
-        backdropFilter: 'blur(10px)',
-        border        : '1px solid rgba(108,99,255,0.4)',
-        borderRadius  : 12,
-        padding       : 12,
+        bottom        : 20,
+        right         : 20,
+        width         : 180,
+        borderRadius  : 14,
+        padding       : 14,
         zIndex        : 999,
-        boxShadow     : '0 8px 32px rgba(0,0,0,0.4)',
+        transition    : 'all 0.3s ease',
       }}>
         <div style={{
           fontSize     : 11,
           fontWeight   : 800,
           textTransform: 'uppercase',
-          color        : 'var(--accent2)',
+          color        : cvWarning || speechWarning ? 'var(--yellow)' : 'var(--accent2)',
           marginBottom : 8,
           display      : 'flex',
           alignItems   : 'center',
@@ -346,9 +343,9 @@ export default function AILiveMonitor({ stream, onViolation, onReady }) {
         }}>
           {modelLoading
             ? <span className="spinner" style={{ width: 12, height: 12, borderWidth: 2 }} />
-            : <span style={{ width: 8, height: 8, background: 'var(--accent)', borderRadius: '50%', boxShadow: '0 0 8px var(--accent)' }} />
+            : <span style={{ width: 8, height: 8, background: cvWarning || speechWarning ? 'var(--yellow)' : 'var(--green)', borderRadius: '50%', boxShadow: cvWarning || speechWarning ? '0 0 8px var(--yellow)' : '0 0 8px var(--green)' }} />
           }
-          {modelLoading ? 'Loading AI…' : 'AI Active'}
+          {modelLoading ? 'Loading AI…' : cvWarning || speechWarning ? 'AI Alert' : 'AI Active'}
         </div>
 
         <div style={{ fontSize: 11, color: 'var(--text3)', display: 'flex', flexDirection: 'column', gap: 6 }}>
