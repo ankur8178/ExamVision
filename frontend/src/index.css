@@ -543,3 +543,43 @@ html.large-text h3 { font-size: 1.3rem !important; }
 .hud-ring-safe { border-color: #22c55e !important; box-shadow: 0 0 15px rgba(34, 197, 94, 0.4); }
 .hud-ring-warn { border-color: #f59e0b !important; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4); }
 .hud-ring-danger { border-color: #ef4444 !important; box-shadow: 0 0 20px rgba(239, 68, 68, 0.6); animation: pulseGlow 1s infinite ease-in-out; }
+
+/* ── MOBILE FULLSCREEN & RESPONSIVE LAYOUT ────────────────────────── */
+@media (max-width: 768px) {
+  html, body {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    touch-action: manipulation;
+  }
+
+  .card {
+    padding: 16px !important;
+    border-radius: 12px !important;
+  }
+
+  .btn {
+    justify-content: center;
+    padding: 12px 18px !important;
+  }
+
+  .input {
+    font-size: 16px !important; /* Prevents unwanted auto-zoom on iOS Safari */
+    padding: 12px 14px !important;
+  }
+
+  .modal {
+    width: 95% !important;
+    max-height: 90vh !important;
+    margin: 10px !important;
+    padding: 18px !important;
+  }
+
+  .tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+}
