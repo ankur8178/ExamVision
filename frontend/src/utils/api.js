@@ -1,7 +1,15 @@
 import axios from 'axios';
 
+const getApiBaseUrl = () => {
+  if (process.env.REACT_APP_API_URL) {
+    const clean = process.env.REACT_APP_API_URL.replace(/\/$/, '');
+    return clean.endsWith('/api') ? clean : `${clean}/api`;
+  }
+  return '/api';
+};
+
 const api = axios.create({ 
-  baseURL: process.env.REACT_APP_API_URL || '/api' 
+  baseURL: getApiBaseUrl() 
 });
 
 api.interceptors.request.use(cfg => {
