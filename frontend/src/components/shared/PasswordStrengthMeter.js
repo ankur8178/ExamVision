@@ -5,7 +5,7 @@ const checks = [
   { label: 'Uppercase letter (A-Z)',  test: v => /[A-Z]/.test(v) },
   { label: 'Lowercase letter (a-z)',  test: v => /[a-z]/.test(v) },
   { label: 'Number (0-9)',            test: v => /[0-9]/.test(v) },
-  { label: 'Special character (!@#$%^&*...)', test: v => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(v) },
+  { label: 'Special character (!@#$%^&*...)', test: v => /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(v) },
 ];
 
 const getStrength = (passed) => {

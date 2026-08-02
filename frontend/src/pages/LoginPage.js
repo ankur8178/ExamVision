@@ -11,7 +11,7 @@ const PW_RULES = [
   v => /[A-Z]/.test(v),
   v => /[a-z]/.test(v),
   v => /[0-9]/.test(v),
-  v => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(v),
+  v => /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(v),
 ];
 const isStrongPassword = (v) => PW_RULES.every(r => r(v));
 
