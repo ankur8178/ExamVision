@@ -9,9 +9,21 @@ require('dotenv').config();
 
 const app    = express();
 const server = http.createServer(app);
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://localhost:5001',
+  ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL.replace(/\/$/, '')] : [])
+];
+
 const io     = new Server(server, {
   cors: { 
-    origin: process.env.FRONTEND_URL || ['http://localhost:3000', 'http://127.0.0.1:3000'], 
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin) || (process.env.FRONTEND_URL && origin.startsWith(process.env.FRONTEND_URL.replace(/\/$/, '')))) {
+        return callback(null, true);
+      }
+      callback(null, false);
+    },
     methods: ['GET', 'POST'],
     credentials: true
   }
@@ -19,20 +31,13 @@ const io     = new Server(server, {
 
 app.use(cors({
   origin: function(origin, callback) {
-    // Allow requests with no origin (mobile apps, curl, server-to-server)
     if (!origin) return callback(null, true);
     
-    const allowed = [
-      'http://localhost:3000',
-      'http://127.0.0.1:3000',
-      'http://localhost:5001',
-      process.env.FRONTEND_URL
-    ].filter(Boolean);
-
-    if (allowed.includes(origin)) {
+    const cleanFrontendUrl = process.env.FRONTEND_URL?.replace(/\/$/, '');
+    if (allowedOrigins.includes(origin) || (cleanFrontendUrl && origin.startsWith(cleanFrontendUrl))) {
       callback(null, true);
     } else {
-      console.log('Blocked by CORS:', origin); // helpful for debugging
+      console.log('Blocked by CORS:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -217,13 +222,12 @@ io.on('connection', (socket) => {
   });
 });
 
-app.set('io', io);
+const PORT = process.env.PORT || 5001;
 
 mongoose.connect(process.env.MONGODB_URI)
-  .then(() => {
-    console.log('MongoDB connected');
-    server.listen(process.env.PORT || 5001, () => {
-      console.log(`Server running on port ${process.env.PORT || 5001}`);
-    });
-  })
-  .catch(err => console.error('MongoDB error:', err));
+  .then(() => console.log('MongoDB connected successfully'))
+  .catch(err => console.error('MongoDB connection error:', err.message));
+
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

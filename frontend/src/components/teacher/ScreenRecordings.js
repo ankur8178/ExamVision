@@ -48,7 +48,7 @@ export default function ScreenRecordings({ testId }) {
     if (!rel) return null;
     if (rel.startsWith('http://') || rel.startsWith('https://')) return rel;
     const API_BASE = process.env.REACT_APP_API_URL
-      ? process.env.REACT_APP_API_URL.replace('/api', '')
+      ? process.env.REACT_APP_API_URL.replace(/\/api\/?$/, '')
       : 'http://localhost:5001';
     return `${API_BASE}${rel}`;
   };

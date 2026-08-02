@@ -20,9 +20,13 @@ const ICE_CONFIG = {
   iceTransportPolicy: 'all',
 };
 
-const API_BASE = process.env.REACT_APP_API_URL
-  ? process.env.REACT_APP_API_URL.replace('/api', '')
-  : 'http://localhost:5001';
+const getApiBaseUrl = () => {
+  if (process.env.REACT_APP_API_URL) {
+    return process.env.REACT_APP_API_URL.replace(/\/api\/?$/, '');
+  }
+  return 'http://localhost:5001';
+};
+const API_BASE = getApiBaseUrl();
 
 // ─────────────────────────────────────────────────────────────────────
 // ExpandedView — fullscreen view of one student

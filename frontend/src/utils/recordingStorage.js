@@ -6,10 +6,14 @@
  * then stores the Drive URL in MongoDB.
  */
 
-// ── FIX: Use env variable so this works in all environments, not just localhost.
-// REACT_APP_API_URL should be set in frontend/.env as http://localhost:5001/api
-// (or your production URL). Falls back to localhost for local dev.
-const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+const getApiBase = () => {
+  if (process.env.REACT_APP_API_URL) {
+    const clean = process.env.REACT_APP_API_URL.replace(/\/$/, '');
+    return clean.endsWith('/api') ? clean : `${clean}/api`;
+  }
+  return 'http://localhost:5001/api';
+};
+const API_BASE = getApiBase();
 
 /**
  * Upload both screen and camera blobs to the backend in one request.
